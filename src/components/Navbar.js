@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { tonConnectUI } from '../tonConnectUI'
 import { WalletContext } from '../components/WalletContext'
 import { useNavigate, useLocation } from 'react-router-dom'
