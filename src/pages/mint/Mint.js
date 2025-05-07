@@ -6,12 +6,21 @@ import './Mint.css'
 export default function Mint() {
 	const [selectedFile, setSelectedFile] = useState(null)
 	const { walletAddress } = useContext(WalletContext)
+	const [nftName, setNftName] = useState('')
+
 
 	const handleFileChange = e => {
 		const file = e.target.files[0]
 		setSelectedFile(file)
 		console.log('📁 Selected file:', file)
 	}
+	
+	const handleNameChange = e => {
+		const value = e.target.value
+		const formatted = value.charAt(0).toUpperCase() + value.slice(1)
+		setNftName(formatted)
+	}
+	const isValidName = nftName.length > 0 && /^[A-Z]/.test(nftName)
 
 	return (
 		<>
@@ -81,7 +90,17 @@ export default function Mint() {
 								alt='preview'
 								className='preview-image'
 							/>
-							<button className='mint-button mint-now'>🚀 Mint now</button>
+							<input
+								type='text'
+								placeholder='Enter NFT name'
+								className='nft-name-input'
+								value={nftName}
+								onChange={handleNameChange}
+							/>
+
+							<button className='mint-button mint-now' disabled={!isValidName}>
+								🚀 Mint now
+							</button>
 						</div>
 					)}
 				</>
