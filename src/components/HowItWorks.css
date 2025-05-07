@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.how-it-works {
+  padding: 4rem 2rem;
+  background-color: #222;
+  color: #fff;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  border-bottom: 4px solid #ff7722;
+  
+}
+
+.how-it-works h2 {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: #ffcc00;
+}
+
+.steps-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.step {
+  width: 90%;
+  max-width: 600px;
+  padding: 2rem;
+  background-color: #222;
+  border: 3px solid #ff7722;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  box-shadow:
+  8px 8px 0 #000,
+  8px 8px 0 2px #ff7722;
+  
+
+}
+
+.step:nth-child(even) {
+  align-self: flex-end;
+}
+.step:nth-child(odd) {
+  align-self: flex-start;
+}
+
+.step:hover {
+  transform: translateY(-6px);
+  transition: transform 0.2s ease-in-out;
+}
+
+
+
+.step img {
+  width: 120px; /* або більше */
+  margin: 0 auto 1rem auto;
+  display: block;
+  image-rendering: pixelated;
+}
+
+
+.step h3 {
+  font-size: 1rem;
+  color: #ff7722;
+}
+
+.step p {
+  font-size: 0.8rem;
+  color: #ccc;
+  margin-top: 0.5rem;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 8px 8px 0 #000, 8px 8px 0 2px #ff7722; }
+  50% { box-shadow: 10px 10px 0 #111, 10px 10px 0 2px #ffa64d; }
+}
+
+.step {
+  animation: glow 2.5s ease-in-out infinite;
+}

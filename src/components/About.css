@@ -1,0 +1,63 @@
+.about {
+  padding: 5rem 2rem;
+  background:#222;
+  font-family: 'Press Start 2P', cursive;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.about h2 {
+  color: #ffcc00;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  text-shadow: 2px 2px #000;
+}
+
+.about-text {
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: #eee;
+  background-color: #2a2a2a;
+  border: 2px solid #ff7722;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 6px 6px 0 #000, 6px 6px 0 2px #ff7722;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  text-align: left;
+}
+
+.about-text:hover {
+  transform: translate(-4px, -4px);
+}
+
+.about-text svg {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.about-text:hover svg {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+
+@media (max-width: 768px) {
+  .about-text {
+    font-size: 0.75rem;
+    padding: 1rem;
+  }
+
+  .about h2 {
+    font-size: 1.4rem;
+  }
+}

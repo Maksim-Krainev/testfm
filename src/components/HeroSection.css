@@ -1,0 +1,182 @@
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem;
+   background-image: repeating-linear-gradient(
+    135deg,
+    #f5e8dc 0px,
+    #f5e8dc 20px,
+    #eadac0 20px,
+    #eadac0 40px
+  );
+  background-size: 40px 40px;
+  image-rendering: pixelated;
+  font-family: 'Press Start 2P', cursive;
+  image-rendering: pixelated;
+  height: 100vh;
+  border-bottom: 4px solid #ff7722;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 50%;
+  color: #1e1e1e;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+.hero-text p {
+  font-size: 1.5rem;
+  color: #222;
+}
+
+
+.hero-text button {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  background-color: #ff7722;
+  border: 3px solid #1a1a1a;
+  color: white;
+  box-shadow: 0 0 0px #ff7722;
+  transition: all 0.2s ease-in-out;
+  margin-top: 10px;
+}
+
+.hero-text button:hover {
+  box-shadow: 0 0 20px #ff7722;
+  transform: scale(1.05);
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  perspective: 1000px;
+}
+
+.main-guy {
+  max-width: 300px;
+  height: auto;
+  image-rendering: pixelated;
+  z-index: 1;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.3s ease;
+}
+
+.icon {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  image-rendering: pixelated;
+  animation: float 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+.icon1 { top: 0; left: 20%; }
+.icon2 { top: 10%; right: 10%; }
+.icon3 { bottom: 0; left: 25%; }
+.icon4 { bottom: 20%; right: 5%; }
+.icon5 { top: 50%; left: 0; }
+.icon6 { top: 80%; right: 0; }
+.icon7 { bottom: 10px; right: 50%;  animation: float-icon 2s ease-in-out infinite; }
+
+.icon7{
+    width: 30px;
+    height: 30px;
+}
+
+@keyframes float {
+  0%   { transform: translateY(0) rotate(0deg); }
+  50%  { transform: translateY(-8px) rotate(3deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes float-icon {
+   0%   { transform: translateY(0); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  max-width: 70%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .hero-text {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .hero-text button {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .hero-image {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .main-guy {
+    max-width: 200px;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icon7 {
+    width: 24px;
+    height: 24px;
+    bottom: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-text p {
+    font-size: 0.9rem;
+  }
+
+  .main-guy {
+    max-width: 160px;
+  }
+
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
+}

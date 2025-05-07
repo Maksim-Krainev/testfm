@@ -1,13 +1,78 @@
-body {
+/* === CSS Reset: універсальний обнуляючий стиль === */
+
+/* 1. Обнуляємо маржі та відступи */
+*,
+*::before,
+*::after {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* 2. Вирівнюємо шрифти та наслідування */
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  font-family: system-ui, sans-serif;
+  background-color: #222;
+  color: #000;
+}
+
+/* 3. Обнуляємо елементи заголовків та тексту */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, figure,
+dl, dd {
+  margin: 0;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 4. Посилання */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 5. Форматування форм */
+button, input, select, textarea {
+  font: inherit;
+  margin: 0;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* 6. Зображення та медіа */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 7. Таблиці */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 8. HTML5 елементи */
+main, nav, aside, footer, header, section, article {
+  display: block;
 }
