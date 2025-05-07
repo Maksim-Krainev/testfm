@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { tonConnect } from '../tonConnect' // шлях до tonConnect.js
+import { useEffect, useState } from 'react'
+import { tonConnectUI } from '../tonConnectUI'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -9,20 +9,15 @@ export default function Navbar() {
 	const toggleMenu = () => setMenuOpen(!menuOpen)
 
 	const connectWallet = async () => {
-		try {
-			await tonConnect.connect()
-			const address = tonConnect.wallet?.account?.address
-			setWalletAddress(address)
-		} catch (err) {
-			console.error('Wallet connection failed:', err)
-		}
+		await tonConnectUI.openModal() // відкриває вибір гаманця
 	}
 
-	// Якщо користувач уже підключений
 	useEffect(() => {
-		if (tonConnect.wallet) {
-			setWalletAddress(tonConnect.wallet.account.address)
-		}
+		tonConnectUI.onStatusChange(wallet => {
+			if (wallet?.account?.address) {
+				setWalletAddress(wallet.account.address)
+			}
+		})
 	}, [])
 
 	return (
