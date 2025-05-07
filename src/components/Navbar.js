@@ -1,26 +1,29 @@
 import { useState, useEffect } from 'react'
+import { tonConnect } from '../tonConnect' // шлях до tonConnect.js
 import './Navbar.css'
-import { tonConnect } from './tonConnect' 
 
 export default function Navbar() {
 	const [menuOpen, setMenuOpen] = useState(false)
-	const [wallet, setWallet] = useState(null)
+	const [walletAddress, setWalletAddress] = useState(null)
 
 	const toggleMenu = () => setMenuOpen(!menuOpen)
 
-	useEffect(() => {
-		const unsub = tonConnect.onStatusChange(wallet => {
-			setWallet(wallet)
-			console.log('Connected wallet:', wallet)
-			console.log('Telegram WebApp:', window.Telegram?.WebApp)
-
-		})
-		return () => unsub()
-	}, [])
-
-	const connect = async () => {
-		await tonConnect.connect()
+	const connectWallet = async () => {
+		try {
+			await tonConnect.connect()
+			const address = tonConnect.wallet?.account?.address
+			setWalletAddress(address)
+		} catch (err) {
+			console.error('Wallet connection failed:', err)
+		}
 	}
+
+	// Якщо користувач уже підключений
+	useEffect(() => {
+		if (tonConnect.wallet) {
+			setWalletAddress(tonConnect.wallet.account.address)
+		}
+	}, [])
 
 	return (
 		<nav className='navbar'>
@@ -49,11 +52,13 @@ export default function Navbar() {
 					</a>
 				</li>
 				<li className='wallet-button-wrapper'>
-					<button className='wallet-button' onClick={connect}>
-						{wallet?.account?.address
-							? `${wallet.account.address.slice(0, 6)}...`
-							: 'Connect Wallet'}
-					</button>
+					{walletAddress ? (
+						<span className='wallet-address'>{walletAddress}</span>
+					) : (
+						<button className='wallet-button' onClick={connectWallet}>
+							Connect Wallet
+						</button>
+					)}
 				</li>
 			</ul>
 		</nav>

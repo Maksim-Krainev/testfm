@@ -1,10 +1,7 @@
 {
-	"manifest_version": "1",
-	"name": "Fucken Me Mini App",
-	"description": "NFTs, Selfies, and Ton Wallets",
-	"url": "https://75a4-176-105-196-97.ngrok-free.app",
-	"icons": ["https://75a4-176-105-196-97.ngrok-free.app/icon.png"],
-	"bridge": {
-		"type": "telegram"
-	}
+	"url": "https://yourdomain.com",
+	"name": "Fucken Me",
+	"iconUrl": "https://yourdomain.com/logo.png",
+	"termsOfUseUrl": "https://yourdomain.com/terms",
+	"privacyPolicyUrl": "https://yourdomain.com/privacy"
 }
