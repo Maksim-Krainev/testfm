@@ -1,25 +1,23 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { tonConnectUI } from '../../tonConnectUI'
-import Telegram from '@twa-dev/sdk'
 import './Mint.css'
 
 export default function Mint() {
 	const navigate = useNavigate()
-	const [isMobile, setIsMobile] = useState(false)
 	const [selectedFile, setSelectedFile] = useState(null)
+	const [walletStatus, setWalletStatus] = useState('loading')
 
+	// Перевіряємо авторизацію через onStatusChange
 	useEffect(() => {
-		if (!tonConnectUI.account?.address) {
-			navigate('/')
-		}
-	}, [navigate])
-
-	useEffect(() => {
-		Telegram.ready(() => {
-			const platform = Telegram.WebApp.platform
-			setIsMobile(platform === 'android' || platform === 'ios')
+		const unsub = tonConnectUI.onStatusChange(wallet => {
+			if (wallet?.account?.address) {
+				setWalletStatus('connected')
+			} else {
+				setWalletStatus('not-connected')
+			}
 		})
+		return () => unsub()
 	}, [])
 
 	const handleFileChange = e => {
@@ -29,59 +27,79 @@ export default function Mint() {
 	}
 
 	return (
-		<div className='hero'>
-			<div className='hero-text'>
-				<h1>Mint your NFT</h1>
-				<p>Choose an image you want to mint as NFT on TON.</p>
+		<>
+			{walletStatus === 'not-connected' && (
+				<div className='preview-box'>
+					<p className='preview-label' style={{ color: '#ff4444' }}>
+						🚫 Please connect your wallet to mint an NFT
+					</p>
+				</div>
+			)}
 
-				{isMobile ? (
-					<label>
-						<input
-							type='file'
-							accept='image/*'
-							capture='environment'
-							style={{ display: 'none' }}
-							onChange={handleFileChange}
-						/>
-						<button className='mint-button'>
-							📸 Take a photo or choose from gallery
-						</button>
-					</label>
-				) : (
-					<label>
-						<input
-							type='file'
-							accept='image/*'
-							style={{ display: 'none' }}
-							onChange={handleFileChange}
-						/>
-						<button className='mint-button'>🗂️ Upload an image</button>
-					</label>
-				)}
+			{walletStatus === 'connected' && (
+				<>
+					<div className='hero'>
+						<div className='hero-text'>
+							<h1>Mint your NFT</h1>
+							<p>Choose an image you want to mint as NFT on TON.</p>
 
-				{selectedFile && (
-					<div style={{ marginTop: '1rem' }}>
-						<p>✅ Selected: {selectedFile.name}</p>
-						<img
-							src={URL.createObjectURL(selectedFile)}
-							alt='preview'
-							style={{
-								maxWidth: '100%',
-								marginTop: '1rem',
-								border: '3px solid #ff7722',
-							}}
-						/>
+							<label
+								className='mint-button'
+								style={{ display: 'inline-block', cursor: 'pointer' }}
+							>
+								📸 Take a photo or choose from gallery
+								<input
+									type='file'
+									accept='image/*'
+									capture='environment'
+									style={{ display: 'none' }}
+									onChange={handleFileChange}
+									onClick={e => (e.target.value = null)}
+								/>
+							</label>
+
+							<label
+								className='mint-button'
+								style={{ display: 'inline-block', cursor: 'pointer' }}
+							>
+								🗂️ Upload an image
+								<input
+									type='file'
+									accept='image/*'
+									style={{ display: 'none' }}
+									onChange={handleFileChange}
+									onClick={e => (e.target.value = null)}
+								/>
+							</label>
+						</div>
 					</div>
-				)}
-			</div>
 
-			<div className='hero-image'>
-				<img
-					className='main-guy'
-					src='https://media.tenor.com/svWZcxwx2HAAAAAi/peepo-pixel-peepo.gif'
-					alt='nft-guy'
-				/>
-			</div>
-		</div>
+					{selectedFile && (
+						<div className='preview-box'>
+							<div className='preview-header'>
+								<p className='preview-label'>
+									✅ Selected: <br />
+									{selectedFile.name}
+								</p>
+								<button
+									className='remove-button'
+									onClick={() => setSelectedFile(null)}
+								>
+									✖
+								</button>
+							</div>
+
+							<img
+								src={URL.createObjectURL(selectedFile)}
+								alt='preview'
+								className='preview-image'
+							/>
+
+							<button className='mint-button mint-now'>🚀 Mint now</button>
+						</div>
+					)}
+				</>
+			)}
+		</>
 	)
 }

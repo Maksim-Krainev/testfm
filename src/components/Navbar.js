@@ -25,7 +25,6 @@ export default function Navbar() {
 			console.log('📦 Connected wallet info:', wallet)
 			if (wallet?.account?.address) {
 				setWalletAddress(wallet.account.address)
-				navigate('/mint')
 			} else {
 				setWalletAddress(null)
 			}
@@ -59,7 +58,10 @@ export default function Navbar() {
 
 	return (
 		<nav className='navbar'>
-			<div className='navbar-logo'>It's Fucken Me</div>
+			<div className='navbar-logo'>
+				It's <br />
+				Fucken Me
+			</div>
 
 			<div className={`burger ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
 				<span />
@@ -96,6 +98,13 @@ export default function Navbar() {
 					<li>
 						<a href='/mint' onClick={() => setMenuOpen(false)}>
 							Mint NFT
+						</a>
+					</li>
+				)}
+				{walletAddress && (
+					<li>
+						<a href='/my-nfts' onClick={() => setMenuOpen(false)}>
+							My NFTs
 						</a>
 					</li>
 				)}

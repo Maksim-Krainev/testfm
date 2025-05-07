@@ -1,0 +1,68 @@
+
+.nft-gallery {
+	padding: 2rem;
+	font-family: 'Press Start 2P', cursive;
+	color: #fff;
+    text-align: center;
+}
+
+.nft-gallery h1 {
+	font-size: 1.5rem;
+	color: #ffcc00;
+	margin-bottom: 1.5rem;
+    margin-top: 4rem;
+    
+}
+
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 1.5rem;
+}
+
+
+.nft-card {
+	background: #333;
+	border: 3px solid #ff7722;
+	border-radius: 8px;
+	padding: 1rem;
+	text-align: center;
+	transition: transform 0.2s ease;
+}
+
+.nft-card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0 10px #ff7722;
+}
+
+.nft-card img {
+	max-width: 100%;
+	height: auto;
+	border: 2px solid #000;
+	background: #fff;
+}
+
+.nft-title {
+	font-size: 0.7rem;
+	margin-top: 0.5rem;
+	color: #ffcc00;
+	word-break: break-word;
+}
+
+@media (max-width: 1200px) {
+  .nft-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .nft-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .nft-grid {
+    grid-template-columns: 1fr;
+  }
+}
