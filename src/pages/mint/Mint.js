@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { tonConnectUI } from '../../tonConnectUI'
 import './Mint.css'
 
 export default function Mint() {
-	const navigate = useNavigate()
 	const [selectedFile, setSelectedFile] = useState(null)
 	const [walletStatus, setWalletStatus] = useState('loading')
 
