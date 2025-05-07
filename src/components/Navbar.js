@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { tonConnectUI } from '../tonConnectUI'
 import './Navbar.css'
 
@@ -9,16 +9,30 @@ export default function Navbar() {
 	const toggleMenu = () => setMenuOpen(!menuOpen)
 
 	const connectWallet = async () => {
-		await tonConnectUI.openModal() // відкриває вибір гаманця
+		await tonConnectUI.openModal()
 	}
 
+	const disconnectWallet = () => {
+		tonConnectUI.disconnect()
+		setWalletAddress(null)
+	}
+
+	// Під час завантаження сторінки
 	useEffect(() => {
-		tonConnectUI.onStatusChange(wallet => {
+		const unsub = tonConnectUI.onStatusChange(wallet => {
 			if (wallet?.account?.address) {
 				setWalletAddress(wallet.account.address)
+			} else {
+				setWalletAddress(null)
 			}
 		})
+		return () => unsub()
 	}, [])
+
+	// Функція скорочення адреси
+	const shortenAddress = address => {
+		return address.slice(0, 6) + '...' + address.slice(-4)
+	}
 
 	return (
 		<nav className='navbar'>
@@ -48,7 +62,17 @@ export default function Navbar() {
 				</li>
 				<li className='wallet-button-wrapper'>
 					{walletAddress ? (
-						<span className='wallet-address'>{walletAddress}</span>
+						<div className='wallet-info'>
+							<span className='wallet-address'>
+								{shortenAddress(walletAddress)}
+							</span>
+							<button
+								className='wallet-button logout'
+								onClick={disconnectWallet}
+							>
+								Logout
+							</button>
+						</div>
 					) : (
 						<button className='wallet-button' onClick={connectWallet}>
 							Connect Wallet

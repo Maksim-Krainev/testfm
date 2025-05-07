@@ -109,6 +109,42 @@
 	transform: rotate(-45deg) translateY(-8px);
 }
 
+.wallet-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.6rem;
+  background-color: #333;
+  padding: 0.3rem 0.8rem;
+  border: 2px solid #ff7722;
+  border-radius: 5px;
+}
+
+.wallet-address {
+  font-family: 'Press Start 2P', cursive;
+  color: #ffcc00;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.wallet-button.logout {
+  font-family: 'Press Start 2P', cursive;
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #ff7722;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.wallet-button.logout:hover {
+  background-color: #ff7722;
+  color: #000;
+}
+
 
 @media (max-width: 768px) {
 	.burger {
@@ -135,4 +171,16 @@
 		width: 100%;
 		text-align: center;
 	}
+
+  .wallet-info {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.wallet-address {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 }
