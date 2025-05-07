@@ -31,7 +31,7 @@ export default function Navbar() {
 			}
 		})
 		return () => unsub()
-	}, [])
+	}, [navigate])
 
 	// Програмна навігація + scroll
 	const handleSectionNav = id => {
