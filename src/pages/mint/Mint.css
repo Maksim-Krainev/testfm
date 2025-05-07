@@ -1,0 +1,16 @@
+.mint-button {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  background-color: #ff7722;
+  border: 3px solid #1a1a1a;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  box-shadow: 0 0 0px #ff7722;
+  transition: all 0.2s ease-in-out;
+  margin-top: 10px;
+}
+
+.mint-button:hover {
+  box-shadow: 0 0 20px #ff7722;
+  transform: scale(1.05);
+}

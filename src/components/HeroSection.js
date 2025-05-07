@@ -36,11 +36,14 @@ export default function HeroSection() {
 			id='home'
 		>
 			<div className='hero-text'>
-				<h1>It's Fucken Me!</h1>
+				<h1>
+					It's <br />
+					Fucken Me!
+				</h1>
 				<p>
-					Fucken Me — when your selfie is worth more than you ever imagined.
+					It's Fucken Me — when your selfie is worth more than you ever
+					imagined.
 				</p>
-				<button>START</button>
 			</div>
 			<div className='hero-image'>
 				<img

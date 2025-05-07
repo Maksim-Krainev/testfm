@@ -25,6 +25,7 @@
   display: flex;
   gap: 2rem;
   list-style: none;
+  align-items: center;
 }
 
 .navbar-links a {
@@ -109,15 +110,19 @@
 	transform: rotate(-45deg) translateY(-8px);
 }
 
+.wallet-button-wrapper {
+  width: 100%;
+}
+
 .wallet-info {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.4rem;
   font-size: 0.6rem;
-  background-color: #333;
   padding: 0.3rem 0.8rem;
-  border: 2px solid #ff7722;
   border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .wallet-address {
@@ -178,7 +183,7 @@
 }
 
 .wallet-address {
-  max-width: 100px;
+  min-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
 }

@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
 import { tonConnectUI } from '../tonConnectUI'
+import { useNavigate, useLocation } from 'react-router-dom'
 import './Navbar.css'
 
 export default function Navbar() {
 	const [menuOpen, setMenuOpen] = useState(false)
 	const [walletAddress, setWalletAddress] = useState(null)
+	const navigate = useNavigate()
+	const location = useLocation()
 
 	const toggleMenu = () => setMenuOpen(!menuOpen)
 
@@ -17,11 +20,12 @@ export default function Navbar() {
 		setWalletAddress(null)
 	}
 
-	// Під час завантаження сторінки
 	useEffect(() => {
 		const unsub = tonConnectUI.onStatusChange(wallet => {
+			console.log('📦 Connected wallet info:', wallet)
 			if (wallet?.account?.address) {
 				setWalletAddress(wallet.account.address)
+				navigate('/mint')
 			} else {
 				setWalletAddress(null)
 			}
@@ -29,14 +33,33 @@ export default function Navbar() {
 		return () => unsub()
 	}, [])
 
-	// Функція скорочення адреси
+	// Програмна навігація + scroll
+	const handleSectionNav = id => {
+		setMenuOpen(false)
+
+		if (location.pathname !== '/') {
+			navigate('/')
+			setTimeout(() => {
+				const section = document.getElementById(id)
+				if (section) {
+					section.scrollIntoView({ behavior: 'smooth' })
+				}
+			}, 100) // Затримка на рендер DOM
+		} else {
+			const section = document.getElementById(id)
+			if (section) {
+				section.scrollIntoView({ behavior: 'smooth' })
+			}
+		}
+	}
+
 	const shortenAddress = address => {
 		return address.slice(0, 6) + '...' + address.slice(-4)
 	}
 
 	return (
 		<nav className='navbar'>
-			<div className='navbar-logo'>Fucken Me</div>
+			<div className='navbar-logo'>It's Fucken Me</div>
 
 			<div className={`burger ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
 				<span />
@@ -46,20 +69,36 @@ export default function Navbar() {
 
 			<ul className={`navbar-links ${menuOpen ? 'active' : ''}`}>
 				<li>
-					<a href='#home' onClick={() => setMenuOpen(false)}>
+					<button
+						className='navbar-link'
+						onClick={() => handleSectionNav('home')}
+					>
 						Home
-					</a>
+					</button>
 				</li>
 				<li>
-					<a href='#nfts' onClick={() => setMenuOpen(false)}>
+					<button
+						className='navbar-link'
+						onClick={() => handleSectionNav('nfts')}
+					>
 						NFT
-					</a>
+					</button>
 				</li>
 				<li>
-					<a href='#about' onClick={() => setMenuOpen(false)}>
+					<button
+						className='navbar-link'
+						onClick={() => handleSectionNav('about')}
+					>
 						About Us
-					</a>
+					</button>
 				</li>
+				{walletAddress && (
+					<li>
+						<a href='/mint' onClick={() => setMenuOpen(false)}>
+							Mint NFT
+						</a>
+					</li>
+				)}
 				<li className='wallet-button-wrapper'>
 					{walletAddress ? (
 						<div className='wallet-info'>
