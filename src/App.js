@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import Home from './pages/home/Home'
 import Mint from './pages/mint/Mint'
 import MyNFTs from './pages/mynfts/MyNFTs'
+import { WalletProvider } from './components/WalletContext'
 
 import './App.css'
 
@@ -16,16 +17,18 @@ function App() {
 	}, [])
 
 	return (
-		<Router>
-			<div className='App'>
-				<Navbar />
-				<Routes>
-					<Route path='/' element={<Home />} />
-					<Route path='/mint' element={<Mint />} />
-					<Route path='/my-nfts' element={<MyNFTs />} />
-				</Routes>
-			</div>
-		</Router>
+		<WalletProvider>
+			<Router>
+				<div className='App'>
+					<Navbar />
+					<Routes>
+						<Route path='/' element={<Home />} />
+						<Route path='/mint' element={<Mint />} />
+						<Route path='/my-nfts' element={<MyNFTs />} />
+					</Routes>
+				</div>
+			</Router>
+		</WalletProvider>
 	)
 }
 

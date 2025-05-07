@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { tonConnectUI } from '../tonConnectUI'
+import { WalletContext } from '../components/WalletContext'
 import { useNavigate, useLocation } from 'react-router-dom'
 import './Navbar.css'
 
 export default function Navbar() {
 	const [menuOpen, setMenuOpen] = useState(false)
-	const [walletAddress, setWalletAddress] = useState(null)
+	const { walletAddress } = useContext(WalletContext)
 	const navigate = useNavigate()
 	const location = useLocation()
 
@@ -17,22 +18,9 @@ export default function Navbar() {
 
 	const disconnectWallet = () => {
 		tonConnectUI.disconnect()
-		setWalletAddress(null)
+		// walletAddress автоматично оновиться через WalletContext
 	}
 
-	useEffect(() => {
-		const unsub = tonConnectUI.onStatusChange(wallet => {
-			console.log('📦 Connected wallet info:', wallet)
-			if (wallet?.account?.address) {
-				setWalletAddress(wallet.account.address)
-			} else {
-				setWalletAddress(null)
-			}
-		})
-		return () => unsub()
-	}, [navigate])
-
-	// Програмна навігація + scroll
 	const handleSectionNav = id => {
 		setMenuOpen(false)
 
@@ -43,7 +31,7 @@ export default function Navbar() {
 				if (section) {
 					section.scrollIntoView({ behavior: 'smooth' })
 				}
-			}, 100) // Затримка на рендер DOM
+			}, 100)
 		} else {
 			const section = document.getElementById(id)
 			if (section) {

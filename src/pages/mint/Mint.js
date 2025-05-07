@@ -1,22 +1,11 @@
-import { useEffect, useState } from 'react'
-import { tonConnectUI } from '../../tonConnectUI'
+import { useState } from 'react'
+import { useContext } from 'react'
+import { WalletContext } from '../../components/WalletContext'
 import './Mint.css'
 
 export default function Mint() {
 	const [selectedFile, setSelectedFile] = useState(null)
-	const [walletStatus, setWalletStatus] = useState('loading')
-
-	// Перевіряємо авторизацію через onStatusChange
-	useEffect(() => {
-		const unsub = tonConnectUI.onStatusChange(wallet => {
-			if (wallet?.account?.address) {
-				setWalletStatus('connected')
-			} else {
-				setWalletStatus('not-connected')
-			}
-		})
-		return () => unsub()
-	}, [])
+	const { walletAddress } = useContext(WalletContext)
 
 	const handleFileChange = e => {
 		const file = e.target.files[0]
@@ -26,7 +15,7 @@ export default function Mint() {
 
 	return (
 		<>
-			{walletStatus === 'not-connected' && (
+			{!walletAddress && (
 				<div className='preview-box'>
 					<p className='preview-label' style={{ color: '#ff4444' }}>
 						🚫 Please connect your wallet to mint an NFT
@@ -34,7 +23,7 @@ export default function Mint() {
 				</div>
 			)}
 
-			{walletStatus === 'connected' && (
+			{walletAddress && (
 				<>
 					<div className='hero'>
 						<div className='hero-text'>
@@ -92,7 +81,6 @@ export default function Mint() {
 								alt='preview'
 								className='preview-image'
 							/>
-
 							<button className='mint-button mint-now'>🚀 Mint now</button>
 						</div>
 					)}
