@@ -10,62 +10,18 @@ export default function MyNFTs() {
 	useEffect(() => {
 		if (!walletAddress) return
 
-		// Тимчасові мок-дані
-		const mockNFTs = [
-			{
-				address: '0:mock1',
-				image:
-					'https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622021.jpg',
-				metadata: { name: 'Pixel Samurai #001' },
-			},
-			{
-				address: '0:mock2',
-				image:
-					'https://www.spot.uz/media/img/2022/04/pjXQH916492512110620_l.jpg',
-				metadata: { name: 'Pepe Cyberpunk' },
-			},
-			{
-				address: '0:mock1',
-				image:
-					'https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622021.jpg',
-				metadata: { name: 'Pixel Samurai #001' },
-			},
-			{
-				address: '0:mock2',
-				image:
-					'https://www.spot.uz/media/img/2022/04/pjXQH916492512110620_l.jpg',
-				metadata: { name: 'Pepe Cyberpunk' },
-			},
-			{
-				address: '0:mock1',
-				image:
-					'https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622021.jpg',
-				metadata: { name: 'Pixel Samurai #001' },
-			},
-			{
-				address: '0:mock2',
-				image:
-					'https://www.spot.uz/media/img/2022/04/pjXQH916492512110620_l.jpg',
-				metadata: { name: 'Pepe Cyberpunk' },
-			},
-			{
-				address: '0:mock1',
-				image:
-					'https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622021.jpg',
-				metadata: { name: 'Pixel Samurai #001' },
-			},
-			{
-				address: '0:mock2',
-				image:
-					'https://www.spot.uz/media/img/2022/04/pjXQH916492512110620_l.jpg',
-				metadata: { name: 'Pepe Cyberpunk' },
-			},
-		]
-
-		setTimeout(() => {
-			setNfts(mockNFTs)
-			setLoading(false)
-		}, 1000)
+		setLoading(true)
+		fetch(`https://tonapi.io/v2/accounts/${walletAddress}/nfts`)
+			.then(res => res.json())
+			.then(data => {
+				// data.nft_items — масив NFT
+				setNfts(data.nft_items || [])
+			})
+			.catch(e => {
+				console.error('Error fetching NFTs:', e)
+				setNfts([])
+			})
+			.finally(() => setLoading(false))
 	}, [walletAddress])
 
 	return (
@@ -90,7 +46,7 @@ export default function MyNFTs() {
 							{nfts.map(nft => (
 								<div className='nft-card' key={nft.address}>
 									<img
-										src={nft.image || ''}
+										src={nft.preview?.url || nft.metadata?.image || ''}
 										alt={nft.metadata?.name || 'NFT'}
 									/>
 									<p className='nft-title'>

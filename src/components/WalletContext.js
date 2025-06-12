@@ -7,9 +7,7 @@ export function WalletProvider({ children }) {
 	const [walletAddress, setWalletAddress] = useState(null)
 
 	useEffect(() => {
-		const address = tonConnectUI.account?.address
-		if (address) setWalletAddress(address)
-
+		// Підписка на зміни статусу гаманця (викликається і на старті, і при перепідключенні)
 		const unsub = tonConnectUI.onStatusChange(wallet => {
 			setWalletAddress(wallet?.account?.address || null)
 		})
