@@ -62,7 +62,7 @@ export default function Mint() {
 			console.log('Request body (JSON):', JSON.stringify(requestBody, null, 2))
 
 			try {
-				const res = await fetch('http://34.27.72.216:5000/mint', {
+				const res = await fetch('https://mint.fucken.me/item/mint', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(requestBody),
@@ -102,12 +102,13 @@ export default function Mint() {
 	}
 	
 	const handleSignAndSend = async transaction => {
+		console.log('Send TX:', transaction)
 		try {
 			await tonConnectUI.sendTransaction(transaction)
-			setStatus('Eror')
+			setStatus('Transaction sent to wallet!')
 		} catch (err) {
 			console.error('Send transaction error:', err)
-			setStatus('eror')
+			setStatus('Send error')
 		}
 	}
 
